@@ -31,7 +31,7 @@ Para este entorno se han configurado tres máquinas virtuales en una red aislada
 
 > **Explicación:** Se utilizó el editor `nano` para añadir la instrucción `*.* @10.0.0.4:514`. Esto indica al sistema legacy que envíe **todos** los logs (`*.*`) al servidor Wazuh (`10.0.0.4`) a través del puerto estándar `514`.
 
-> **Verificación de conectividad:** Se confirma el acceso exitoso al panel de control desde la máquina atacante/analista (Kali Linux) apuntando a la IP `10.0.0.4` a través de HTTPS.
+
 
 El reto principal fue establecer visibilidad sobre un sistema "Legacy" que no soporta el agente de Wazuh actual.
 - **Solución:** Configuración de un canal de comunicación vía **Syslog (UDP/514)**.
