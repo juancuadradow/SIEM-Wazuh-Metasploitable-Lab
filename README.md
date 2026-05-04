@@ -76,7 +76,7 @@ Tras validar la autoprotección del SIEM, se procede a lanzar el ataque al objet
 ### 1.1 Ejecución y Troubleshooting de Visibilidad
 Al lanzar un escaneo agresivo inicial con Nmap, se detectó un **"Detection Gap"**: Wazuh no registraba los eventos de la víctima en el Dashboard.
 
-![Ataque Nmap a Victima](image12.png)
+![Ataque Nmap a Victima](image 12.png)
 
 *   **Problema identificado:** El "chivato" (reenvío de logs) no estaba enviando datos de forma consistente.
 *   **Solución aplicada:** Se forzó la configuración del canal mediante:
