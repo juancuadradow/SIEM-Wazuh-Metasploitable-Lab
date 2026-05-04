@@ -31,7 +31,21 @@ Para este entorno se han configurado tres máquinas virtuales en una red aislada
 
 > **Explicación:** Se utilizó el editor `nano` para añadir la instrucción `*.* @10.0.0.4:514`. Esto indica al sistema legacy que envíe **todos** los logs (`*.*`) al servidor Wazuh (`10.0.0.4`) a través del puerto estándar `514`.
 
+### 🛠️ Configuración en el Wazuh Manager (ossec.conf)
 
+Para que el servidor acepte los logs remotos, fue necesario habilitar el recolector de **Syslog** dentro del archivo de configuración principal del Manager.
+
+#### 1. Identificación del protocolo remoto
+![Configuración nativa de Wazuh](image8.png)
+> **Análisis:** Por defecto, el bloque `<remote>` está configurado para conexiones seguras de agentes en el puerto `1514/TCP`. Dado que los sistemas legacy no soportan el agente moderno, debemos habilitar un canal estándar.
+
+#### 2. Habilitación del puerto de escucha Syslog (UDP/514)
+![Configuración de recepción Syslog](image9.png)
+> **Implementación:** Se añadió un nuevo bloque de configuración especificando:
+> * **Connection:** `syslog` (permite la recepción de logs sin necesidad de agente).
+> * **Port:** `514` (el puerto estándar para tráfico de logs).
+> * **Protocol:** `udp` (elegido por su baja sobrecarga en sistemas antiguos).
+> * **Allowed-ips:** `0.0.0.0/0` (en este entorno de laboratorio, permite recibir tráfico de toda la subred configurada).
 
 El reto principal fue establecer visibilidad sobre un sistema "Legacy" que no soporta el agente de Wazuh actual.
 - **Solución:** Configuración de un canal de comunicación vía **Syslog (UDP/514)**.
