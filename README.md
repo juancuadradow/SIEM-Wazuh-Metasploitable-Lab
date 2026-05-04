@@ -51,7 +51,23 @@ El reto principal fue establecer visibilidad sobre un sistema "Legacy" que no so
 - **Solución:** Configuración de un canal de comunicación vía **Syslog (UDP/514)**.
 - **Configuración en Víctima:** Se redirigieron todos los logs del sistema hacia el SIEM mediante la edición del archivo `/etc/rsyslog.conf`.
 
+## 🔍 Caso de Estudio: Autoprotección del SIEM (HIDS)
+
+### 1.1 El Incidente (Escaneo Nmap)
+Durante las pruebas de estrés, se realizó un escaneo agresivo sobre la IP `10.0.0.4`.
+
+![Escaneo Nmap](image10.png)
+
+### 1.2 Detección de Anomalía
+El servidor detectó un pico inusual de actividad en los logs, demostrando su capacidad como **Host-based Intrusion Detection System (HIDS)** incluso cuando el objetivo es él mismo.
+
+![Gráfica de eventos](image11.png)
+
 ---
+
+## ⚠️ Análisis de Incidentes y Hallazgos
+... (aquí sigue lo que ya tienes de la imagen 5 del Dashboard)
+¿Por qué ponerlo ahí?
 
 ## ⚠️ Análisis de Incidentes y Hallazgos
 
