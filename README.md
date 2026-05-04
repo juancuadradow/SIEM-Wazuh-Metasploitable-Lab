@@ -8,9 +8,11 @@ Para este entorno se han configurado tres máquinas virtuales en una red aislada
 - **Atacante:** Kali Linux (10.0.0.1)
 - **Defensa (SIEM):** Wazuh Manager (10.0.0.4)
 - **Víctima (Legacy):** Metasploitable 2 (10.0.0.5)
-  
+- 
+#### ⚙️ Configuración de IP inicial en Wazuh Server  
 ![Configuración de IP inicial en Wazuh Server](image.png)
 
+#### ✅ Verificación de IP 10.0.0.4 en Wazuh Server
 ![Verificación de IP 10.0.0.4 en Wazuh Server](image2.png)
 ---
 
