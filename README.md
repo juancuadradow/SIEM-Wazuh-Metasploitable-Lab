@@ -20,6 +20,12 @@ Para este entorno se han configurado tres máquinas virtuales en una red aislada
 > **Nota técnica:** En la captura superior se observa el flujo de logs de OpenSearch en formato JSON. Estos registros confirman la correcta sincronización entre el indexador y la interfaz visual, garantizando que las alertas generadas por Metasploitable 2 se visualicen sin retraso (latencia mínima).
 
 ## 🛠️ Desafío Técnico: Monitorización Sin Agente
+
+#### 🌐 Acceso a la Interfaz Web de Wazuh
+![Login de Wazuh Dashboard](image4.png)
+
+> **Verificación de conectividad:** Se confirma el acceso exitoso al panel de control desde la máquina atacante/analista (Kali Linux) apuntando a la IP `10.0.0.4` a través de HTTPS.
+
 El reto principal fue establecer visibilidad sobre un sistema "Legacy" que no soporta el agente de Wazuh actual.
 - **Solución:** Configuración de un canal de comunicación vía **Syslog (UDP/514)**.
 - **Configuración en Víctima:** Se redirigieron todos los logs del sistema hacia el SIEM mediante la edición del archivo `/etc/rsyslog.conf`.
