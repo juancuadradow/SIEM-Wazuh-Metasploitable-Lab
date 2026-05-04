@@ -40,6 +40,13 @@ El reto principal fue establecer visibilidad sobre un sistema "Legacy" que no so
 ---
 
 ## ⚠️ Análisis de Incidentes y Hallazgos
+
+#### 📊 Dashboard de Seguridad: Visualización de Eventos
+
+![Dashboard de Wazuh con alertas](image5.png)
+
+> **Evidencia técnica:** En el panel superior se observa que, aunque no hay agentes instalados (0 agents registered), el SIEM ya ha procesado **12 alertas de severidad media** y **106 de severidad baja**. Esto confirma que la ingesta de datos vía Syslog desde el sistema Legacy es exitosa y permite iniciar el análisis de comportamiento.
+> 
 Durante las pruebas de intrusión con **Nmap**, se identificó un comportamiento crítico:
 1. **Saturación del Servicio:** Un escaneo agresivo (`-A`) provocó la saturación momentánea del demonio de registro en la víctima.
 2. **Detección de Continuidad:** Wazuh detectó y alertó sobre el reinicio del servicio `syslogd` (Alerta Nivel 5), evidenciando un impacto directo en el sistema monitorizado tras un escaneo de red de alta intensidad.
