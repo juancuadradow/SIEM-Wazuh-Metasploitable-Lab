@@ -111,33 +111,31 @@ Para confirmar la comunicación sin depender de la latencia de la interfaz gráf
 
 A pesar de confirmar el flujo de datos, los ataques de Nmap no dispararon alertas de criticidad alta en el Dashboard. Este es un hallazgo clave del proyecto:
 
-1.  **Saturación del Nodo:** Un escaneo `-A -T4` es tan agresivo que satura el demonio de logs antiguo (`sysklogd`), provocando que el servicio se detenga antes de poder reportar el ataque completo.
+1. **Saturación del Nodo:** Un escaneo `-A -T4` es tan agresivo que satura el demonio de logs antiguo (`sysklogd`), provocando que el servicio se detenga antes de poder reportar el ataque completo.
 
 ![Evidencia de saturacion 10.0.0.5](image19.png)
 
-> **Hallazgo Clave:** El log detallado muestra la descripción `Syslogd exiting (logging stopped)`. Esto confirma que el servicio de auditoría de la víctima se detuvo antes de poder reportar el ataque completo, generando un "punto ciego" por denegación de servicio en el propio registro de eventos
+> **Hallazgo Clave:** El log detallado muestra la descripción `syslogd exiting (logging stopped)`. Esto confirma que el servicio de auditoría de la víctima se detuvo antes de poder reportar el ataque completo, generando un **"punto ciego"** por denegación de servicio en el propio registro de eventos.
 
-3.  **Ajuste de Reglas (Tuning):** Se concluye que para sistemas legacy, el Blue Team debe crear reglas personalizadas que detecten picos de conexiones en puertos cerrados, ya que las reglas genéricas pueden no alcanzar el umbral de severidad necesario por defecto.
+2. **Ajuste de Reglas (Tuning):** Se concluye que para sistemas legacy, el Blue Team debe crear reglas personalizadas que detecten picos de conexiones en puertos cerrados, ya que las reglas genéricas pueden no alcanzar el umbral de severidad necesario por defecto ante una caída del demonio.
 
 > **Éxito Técnico:** Se ha logrado establecer un canal de telemetría funcional en un entorno de red real, superando las barreras de compatibilidad de sistemas obsoletos.
 
+---
 
 ## ⚠️ Análisis de Incidentes y Hallazgos
 
-#### 📊 Dashboard de Seguridad: Visualización de Eventos
+### 📊 Dashboard de Seguridad: Visualización de Eventos
 
 ![Dashboard de Wazuh con alertas](image5.png)
 
 > **Evidencia técnica:** En el panel superior se observa que, aunque no hay agentes instalados (0 agents registered), el SIEM ya ha procesado **12 alertas de severidad media** y **106 de severidad baja**. Esto confirma que la ingesta de datos vía Syslog desde el sistema Legacy es exitosa y permite iniciar el análisis de comportamiento.
-> 
-Durante las pruebas de intrusión con **Nmap**, se identificó un comportamiento crítico:
-1. **Saturación del Servicio:** Un escaneo agresivo (`-A`) provocó la saturación momentánea del demonio de registro en la víctima.
-2. **Detección de Continuidad:** Wazuh detectó y alertó sobre el reinicio del servicio `syslogd` (Alerta Nivel 5), evidenciando un impacto directo en el sistema monitorizado tras un escaneo de red de alta intensidad.
 
 ---
 
 ## 🚀 Conclusión
+
 Este laboratorio demuestra mi capacidad para:
-- Configurar arquitecturas de red seguras y monitorización centralizada.
-- Solventar limitaciones de compatibilidad en sistemas antiguos mediante protocolos estándar (Syslog).
-- Analizar logs de sistema para identificar anomalías de seguridad incluso ante la ausencia de firmas específicas de ataque.
+* **Configurar arquitecturas de red seguras** y monitorización centralizada.
+* **Solventar limitaciones de compatibilidad** en sistemas antiguos mediante protocolos estándar (Syslog).
+* **Analizar logs de sistema** para identificar anomalías de seguridad e identificar comportamientos críticos como la saturación de servicios de auditoría.
