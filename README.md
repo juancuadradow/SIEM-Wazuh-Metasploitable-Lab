@@ -25,9 +25,9 @@ Para este entorno se han configurado tres máquinas virtuales en una red aislada
 ![Login de Wazuh Dashboard](image4.png)
 
 #### ⚙️ Configuración del reenvío de logs en Metasploitable 2
-![Comando de edición](image5.png)
+![Comando de edición](image6.png)
 
-![Configuración Syslog](image6.png)
+![Configuración Syslog](image7.png)
 
 > **Explicación:** Se utilizó el editor `nano` para añadir la instrucción `*.* @10.0.0.4:514`. Esto indica al sistema legacy que envíe **todos** los logs (`*.*`) al servidor Wazuh (`10.0.0.4`) a través del puerto estándar `514`.
 
