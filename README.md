@@ -69,6 +69,59 @@ Nivel de Regla (Rule Level): En la captura se observa un Nivel 3, pero durante u
 
 Descripción de la regla: En el log detallado vemos PAM: Login session opened y actividades de sudo. Esto es porque Nmap, al intentar conectar con scripts agresivos, dispara eventos de autenticación y acceso al sistema.
 
+## 🎯 Ataque Dirigido a Activo Externo (Metasploitable 2)
+
+Tras validar la autoprotección del SIEM, se procede a lanzar el ataque al objetivo real de la infraestructura (10.0.0.5).
+
+### 1.1 Ejecución y Troubleshooting de Visibilidad
+Al lanzar un escaneo agresivo inicial con Nmap, se detectó un **"Detection Gap"**: Wazuh no registraba los eventos de la víctima en el Dashboard.
+
+![Ataque Nmap a Victima](image12.png)
+
+*   **Problema identificado:** El "chivato" (reenvío de logs) no estaba enviando datos de forma consistente.
+*   **Solución aplicada:** Se forzó la configuración del canal mediante:
+
+     `echo "*.* @10.0.0.4" | sudo tee -a /etc/syslog.conf`
+![Comando echo](image13.png)
+Comprobamos que se a plasmado en la maquina
+![Comprobacion](image14.png)
+Correcto
+![Comprobacion](image15.png)
+
+*   **Persistencia:** Se verificó la correcta escritura del archivo y se reinició el servicio para asegurar el flujo:
+    `sudo /etc/init.d/sysklogd restart`
+![Comando sudo reinicio de servicio](image16.png)
+
+Una vez configurado el reenvío de logs en la víctima (10.0.0.5), se procede a realizar un escaneo agresivo con Nmap desde la máquina atacante Kali Linux
+
+![Comando sudo cat](image17.png)
+
+---
+
+### 1.2 Monitorización en Tiempo Real (CLI)
+Para confirmar la comunicación sin depender de la latencia de la interfaz gráfica, se utilizó la línea de comandos en el servidor Wazuh.
+
+![Monitorización en tiempo real](image18.png)
+
+> **Evidencia:** Mediante `tail -f` sobre los logs de alertas, se confirmó visualmente que los registros de actividad de la víctima (10.0.0.5) ya estaban siendo procesados por el motor de análisis del SIEM.
+
+---
+
+### 🔬 Análisis Final de Blue Team: ¿Por qué no hubo alertas rojas?
+
+A pesar de confirmar el flujo de datos, los ataques de Nmap no dispararon alertas de criticidad alta en el Dashboard. Este es un hallazgo clave del proyecto:
+
+1.  **Saturación del Nodo:** Un escaneo `-A -T4` es tan agresivo que satura el demonio de logs antiguo (`sysklogd`), provocando que el servicio se detenga antes de poder reportar el ataque completo.
+
+![Evidencia de saturacion 10.0.0.5](image19.png)
+
+> **Hallazgo Clave:** El log detallado muestra la descripción `Syslogd exiting (logging stopped)`. Esto confirma que el servicio de auditoría de la víctima se detuvo antes de poder reportar el ataque completo, generando un "punto ciego" por denegación de servicio en el propio registro de eventos
+
+3.  **Ajuste de Reglas (Tuning):** Se concluye que para sistemas legacy, el Blue Team debe crear reglas personalizadas que detecten picos de conexiones en puertos cerrados, ya que las reglas genéricas pueden no alcanzar el umbral de severidad necesario por defecto.
+
+> **Éxito Técnico:** Se ha logrado establecer un canal de telemetría funcional en un entorno de red real, superando las barreras de compatibilidad de sistemas obsoletos.
+
+
 ## ⚠️ Análisis de Incidentes y Hallazgos
 
 #### 📊 Dashboard de Seguridad: Visualización de Eventos
