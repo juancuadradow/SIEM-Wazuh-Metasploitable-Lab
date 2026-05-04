@@ -63,6 +63,11 @@ El servidor detectó un pico inusual de actividad en los logs, demostrando su ca
 
 ![Gráfica de eventos](image11.png)
 
+Agente: wazuh-server (ID: 000). Esto indica que la alerta se generó internamente en el servidor.
+
+Nivel de Regla (Rule Level): En la captura se observa un Nivel 3, pero durante un Nmap agresivo, este nivel escala según los scripts NSE que se activen.
+
+Descripción de la regla: En el log detallado vemos PAM: Login session opened y actividades de sudo. Esto es porque Nmap, al intentar conectar con scripts agresivos, dispara eventos de autenticación y acceso al sistema.
 
 ## ⚠️ Análisis de Incidentes y Hallazgos
 
