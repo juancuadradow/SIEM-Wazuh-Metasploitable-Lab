@@ -63,11 +63,6 @@ El servidor detectó un pico inusual de actividad en los logs, demostrando su ca
 
 ![Gráfica de eventos](image11.png)
 
----
-
-## ⚠️ Análisis de Incidentes y Hallazgos
-... (aquí sigue lo que ya tienes de la imagen 5 del Dashboard)
-¿Por qué ponerlo ahí?
 
 ## ⚠️ Análisis de Incidentes y Hallazgos
 
