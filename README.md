@@ -14,7 +14,10 @@ Para este entorno se han configurado tres máquinas virtuales en una red aislada
 
 #### ✅ Verificación de IP 10.0.0.4 en Wazuh Server
 ![Verificación de IP 10.0.0.4 en Wazuh Server](image2.png)
----
+
+#### 🖥️ Verificación del estado de Wazuh Dashboard
+![Estado de Wazuh Dashboard](image3.png)
+> **Nota técnica:** En la captura superior se observa el flujo de logs de OpenSearch en formato JSON. Estos registros confirman la correcta sincronización entre el indexador y la interfaz visual, garantizando que las alertas generadas por Metasploitable 2 se visualicen sin retraso (latencia mínima).
 
 ## 🛠️ Desafío Técnico: Monitorización Sin Agente
 El reto principal fue establecer visibilidad sobre un sistema "Legacy" que no soporta el agente de Wazuh actual.
